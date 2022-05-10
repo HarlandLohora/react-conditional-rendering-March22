@@ -1,25 +1,27 @@
+import React, { useState } from "react"
 import logo from './logo.svg';
+import Spinner from "./components/Spinner";
+import MovieList from "./components/MovieList";
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [spinner, setSpinner] = useState(false) // hook 
+  const [showMovies, setShowMovies] = useState(true);
+
+  const toggleShowMovies = () => {
+    setShowMovies(!showMovies);
+  };
+
+  if (spinner) {
+    return <Spinner></Spinner>
+  } else {
+    return (
+      <div className="App">
+        <button onClick={toggleShowMovies}>{showMovies ? 'Hide' : 'Show'}</button>
+        {showMovies && <MovieList />}
+      </div>
+    );
+  }
 }
 
 export default App;
